@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CNR AI HUB, your ultimate companion for the Cops and Robbers game roleplay on Discord. Enhance your gameplay with advanced AI chat, providing fun and interactive commands to make your experience more enjoyable.">
+    <title>CNR AI HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f4f4f9, #e8e8f9);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+            nav a:hover {
+                color: #e74c3c;
+            }
+
+        .hero {
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                margin-bottom: 20px;
+                animation: fadeInDown 1s ease-in-out;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+                animation: fadeInUp 1s ease-in-out;
+            }
+
+            .hero button {
+                background: #e74c3c;
+                border: none;
+                padding: 10px 20px;
+                color: white;
+                font-size: 1rem;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background 0.3s, transform 0.3s;
+                animation: fadeInUp 1s ease-in-out;
+            }
+
+                .hero button:hover {
+                    background: #c0392b;
+                    transform: translateY(-2px);
+                }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .transparent-card {
+            background-color: rgba(255, 255, 255, 0.9); /* Adjust transparency as needed */
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .transparent-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+
+        .introduction, .commands, .features, .testimonials, .contact, .faq {
+            background: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .introduction:hover, .commands:hover, .features:hover, .testimonials:hover, .contact:hover, .faq:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .commands .category {
+                margin-bottom: 15px;
+            }
+
+        .category-header {
+            cursor: pointer;
+            padding: 10px;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background 0.3s;
+        }
+
+            .category-header:hover {
+                background: #bdc3c7;
+            }
+
+        .category-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .slick-slider {
+            margin: 20px 0;
+        }
+
+        .testimonial {
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+        }
+
+        .faq-header {
+            cursor: pointer;
+            padding: 10px;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+            .faq-header:hover {
+                background: #bdc3c7;
+            }
+
+        .faq-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 20px;
+        }
+
+            footer a {
+                color: white;
+                margin: 0 10px;
+                text-decoration: none;
+                font-size: 1.2rem;
+                transition: color 0.3s;
+            }
+
+                footer a:hover {
+                    color: #e74c3c;
+                }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+            .dark-mode-toggle:hover {
+                background: #bdc3c7;
+            }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+            .back-to-top:hover {
+                background: #c0392b;
+            }
+
+        .dark-mode {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+            .dark-mode .container {
+                background: #34495e;
+            }
+
+            .dark-mode .category-content, .dark-mode .faq-content {
+                background: #3b5998;
+            }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #e74c3c;
+            width: 0;
+            z-index: 1001;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+            .loading span {
+                display: block;
+                width: 40px;
+                height: 40px;
+                border: 4px solid #e74c3c;
+                border-top: 4px solid transparent;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+            .lazy-load.loaded {
+                opacity: 1;
+            }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <span></span>
+    </div>
+    <header>
+        <h1>CNR AI HUB</h1>
+        <nav>
+            <a href="#introduction">Introduction</a>
+            <a href="#commands">Commands</a>
+            <a href="#features">Features</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div class="scroll-indicator"></div>
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="https://cdn.discordapp.com/attachments/1252656102487625769/1252656169814589593/20864-360.mp4?ex=66730278&is=6671b0f8&hm=b11c0c8e52efd115edb80bfd0384f017cc6f0f07a0e1c99dba26171be9689b46&.mp4" type="video/mp4" alt="CNR AI HUB Video">
+        </video>
+        <div>
+            <h1>Welcome to CNR AI HUB</h1>
+            <p>Your ultimate companion for the Cops and Robbers game roleplay on Discord.</p>
+            <button onclick="scrollToIntroduction()">Learn More</button>
+        </div>
+    </div>
+    <div class="container">
+        <main>
+            <section id="commands" class="commands">
+                <h2>Command List</h2>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('ai-responder-commands')">AI Responder Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="ai-responder-commands" class="category-content">
+                        <ul>
+                            <li><strong>!roll</strong> - Roll the dice.</li>
+                            <li><strong>!complement</strong> - Give a complement.</li>
+                            <li><strong>!insult</strong> - Insult someone.</li>
+                            <li><strong>!catfact</strong> - Get a cat fact.</li>
+                            <li><strong>!dogfact</strong> - Get a dog fact.</li>
+                            <li><strong>!hug</strong> - Give a hug.</li>
+                            <li><strong>!pat</strong> - Pat someone.</li>
+                            <li><strong>!cry</strong> - Cry.</li>
+                            <li><strong>!dance</strong> - Dance.</li>
+                            <li><strong>!sing</strong> - Sing a song.</li>
+                            <li><strong>!sleep</strong> - Go to sleep.</li>
+                            <li><strong>!eat</strong> - Eat something.</li>
+                            <li><strong>!party</strong> - Party time!</li>
+                            <li><strong>!fight</strong> - Start a fight.</li>
+                            <li><strong>!explore</strong> - Explore the surroundings.</li>
+                            <li><strong>!love</strong> - Spread love.</li>
+                            <li><strong>!study</strong> - Study something.</li>
+                            <li><strong>!laugh</strong> - Laugh out loud.</li>
+                            <li><strong>!write</strong> - Write something.</li>
+                            <li><strong>!dream</strong> - Dream about something.</li>
+                            <li><strong>!read</strong> - Read something.</li>
+                            <li><strong>!playing</strong> - Tell what you're playing.</li>
+                            <li><strong>!ask</strong> - Ask a question.</li>
+                            <li><strong>!joke</strong> - Tell a joke.</li>
+                            <li><strong>!cute</strong> - Be cute.</li>
+                            <li><strong>!noob</strong> - Call someone a noob.</li>
+                            <li><strong>!pro</strong> - Show off your pro skills.</li>
+                            <li><strong>!simp</strong> - Simp over someone.</li>
+                            <li><strong>!gay</strong> - Check if this item was used.</li>
+
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('combat-commands')">Combat Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="combat-commands" class="category-content">
+                        <ul>
+                            <li><strong>!pain</strong> - Knife attack.</li>
+                            <li><strong>!plantc4</strong> - Place a bomb.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('economy-commands')">Economy Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="economy-commands" class="category-content">
+                        <ul>
+                            <li><strong>!profile</strong> - Engage in a conversation with the AI.</li>
+                            <li><strong>!earn</strong> - Earning.</li>
+                            <li><strong>!daily</strong> - Earning.</li>
+                            <li><strong>!work</strong> - Earning.</li>
+                            <li><strong>!balance</strong> - Check your balance.</li>
+                            <li><strong>!give</strong> - Send your moneys to someone.</li>
+                            <li><strong>!weap</strong> - Select your weapon to buy.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('interior-commands')">Interior Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="interior-commands" class="category-content">
+                        <ul>
+                            <li><strong>!itemshopenter</strong> - Enter the Item shop to rob/shop.</li>
+                            <li><strong>!itemshopexit</strong> - Exit Item shop.</li>
+                            <li><strong>!ammuenter</strong> - Enter Ammunation to rob/shop.</li>
+                            <li><strong>!ammuexit</strong> - Exit ammunation.</li>
+                            <li><strong>!bankenter</strong> - Enter Bank to rob.</li>
+                            <li><strong>!bankexit</strong> - Exit bank.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('item-commands')">Item Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="item-commands" class="category-content">
+                        <ul>
+                            <li><strong>!itemshopping</strong> - Get your items.</li>
+                            <li><strong>!usehealth</strong> - Use health.</li>
+                            <li><strong>!usearmor</strong> - Use Armor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('law-enforcement-commands')">Law Enforcement Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="law-enforcement-commands" class="category-content">
+                        <ul>
+                            <li><strong>!copduty</strong> - Start working as cop.</li>
+                            <li><strong>!cuff</strong> - Cuff a robber.</li>
+                            <li><strong>!jail</strong> - Jail a robber.</li>
+                            <li><strong>!quitjob</strong> - End working as cop.</li>
+                            <li><strong>!hitmanappoint</strong> - Appoint a hitman to assassinate someone.</li>
+                            <li><strong>!kill</strong> - Kill your target (works for hitman).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('player-commands')">Player Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="player-commands" class="category-content">
+                        <ul>
+                            <li><strong>!gameinfo</strong> - Information about the game.</li>
+                            <li><strong>!leave</strong> - Leave the game.</li>
+                            <li><strong>!status</strong> - Use Armor.</li>
+                            <li><strong>!bankrob</strong> - Use Armor.</li>
+                            <li><strong>!itemshoprob</strong> - Rob Item Shop.</li>
+                            <li><strong>!ammurob</strong> - Rob Ammunation.</li>
+                            <li><strong>!bankrob</strong> - Rob Bank.</li>
+                            <li><strong>!search</strong> - Search .</li>
+                            <li><strong>!rob</strong> - Rob a person.</li>
+                            <li><strong>!bankrob</strong> - Use Armor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="category transparent-card">
+                    <div class="category-header" onclick="toggleCategory('team-management-commands')">Team Management Commands <i class="fas fa-chevron-down"></i></div>
+                    <div id="team-management-commands" class="category-content">
+                        <ul>
+                            <li><strong>!teamuser</strong> - Send team request .</li>
+                            <li><strong>!team</strong> - Accept / Denied  team request.</li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+            </section>
+
+
+            <section id="features" class="features">
+                <h2>Features</h2>
+                <p>Our bot provides a variety of features to enhance your Discord server experience. Enjoy seamless roleplay with custom commands, interact with advanced AI, and have fun with a range of entertaining commands. Explore the world of CNR AI HUB and make your server lively and engaging!</p>
+            </section>
+            <section id="testimonials" class="testimonials">
+                <h2>Testimonials</h2>
+                <div class="slick-slider">
+                    <div class="testimonial">
+                        <p>"CNR AI HUB has transformed our game nights. The roleplay commands are amazing!" - Aprel</p>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The AI chat is so responsive and fun. Highly recommend this bot!" - Akienta</p>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Fantastic bot with a lot of cool features. Our server loves it!" - Westher</p>
+                    </div>
+                </div>
+            </section>
+            <section id="faq" class="faq">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleCategory('faq1')">What is CNR AI HUB? <i class="fas fa-chevron-down"></i></div>
+                    <div id="faq1" class="faq-content">
+                        <p>CNR AI HUB is a Discord bot designed to enhance the Cops and Robbers game roleplay experience. It offers a variety of commands and features to make your gameplay more engaging and interactive.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleCategory('faq2')">How do I add the bot to my server? <i class="fas fa-chevron-down"></i></div>
+                    <div id="faq2" class="faq-content">
+                        <p>You can add the bot to your server by clicking on the invite link provided in the Contact section.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleCategory('faq3')">Is the bot free to use? <i class="fas fa-chevron-down"></i></div>
+                    <div id="faq3" class="faq-content">
+                        <p>Yes, CNR AI HUB is free to use. However, we accept donations to support further development and server costs.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="contact">
+                <h2>Contact Us</h2>
+                <form>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email"><br>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message"></textarea><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <div id="map" style="height:300px;"></div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 CNR AI HUB | <a href="https://github.com/your-repo" target="_blank" style="color: white;">GitHub</a> | <a href="https://discord.gg/your-invite" target="_blank" style="color: white;">Discord</a></p>
+    </footer>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</div>
+    <div class="back-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></div>
+    <div id="chatbot" style="position: fixed; bottom: 30px; left: 30px; cursor: pointer; background: #e74c3c; color: white; padding: 10px; border-radius: 50%;"><i class="fas fa-comment-alt"></i></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".loading").style.display = "none";
+            initMap();
+        });
+
+        function toggleCategory(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+
+        function toggleDarkMode() {
+            var body = document.body;
+            body.classList.toggle("dark-mode");
+            var toggleText = document.querySelector('.dark-mode-toggle');
+            if (body.classList.contains("dark-mode")) {
+                toggleText.textContent = "Light Mode";
+                body.style.backgroundColor = "#2c3e50";
+                body.style.color = "#ecf0f1";
+            } else {
+                toggleText.textContent = "Dark Mode";
+                body.style.backgroundColor = "";
+                body.style.color = "";
+            }
+        }
+
+        window.addEventListener('scroll', function () {
+            var scrollIndicator = document.querySelector('.scroll-indicator');
+            var maxScroll = document.body.scrollHeight - window.innerHeight;
+            var percentage = (window.scrollY / maxScroll) * 100;
+            scrollIndicator.style.width = percentage + '%';
+
+            if (window.scrollY > 300) {
+                document.querySelector('.back-to-top').style.display = 'block';
+            } else {
+                document.querySelector('.back-to-top').style.display = 'none';
+            }
+        });
+
+        document.querySelectorAll('img.lazy-load').forEach(function (img) {
+            img.onload = function () {
+                img.classList.add('loaded');
+            };
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+
+        $(document).ready(function () {
+            $('.slick-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
+            });
+        });
+
+        document.getElementById('chatbot').addEventListener('click', function () {
+            alert('Chatbot feature coming soon!');
+        });
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0OuADI9e6fkeDhb4Zvk5b2_EeGly4KK4&callback=initMap"></script>
+</body>
+</html>
