@@ -45,82 +45,85 @@
             }
 
         /* Hero Section */
-.hero {
-    position: relative;
-    height: 600px;
-    overflow: hidden;
-    color: white;
-    text-align: center;
-}
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
 
-.hero video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit:  cover;
-    transform: translate(-50%, -50%);
-     z-index: -1;
-}
+            .hero video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+            }
 
-.hero .hero-content {
-    position: relative;
-    z-index: 1;
-}
+            .hero .hero-content {
+                position: relative;
+                z-index: 1;
+            }
 
-.hero h1, .hero p {
-    animation-duration: 2s;
-    animation-fill-mode: both;
-}
+            .hero h1, .hero p {
+                animation-duration: 2s;
+                animation-fill-mode: both;
+            }
 
-.hero h1 {
-    animation-name: fadeInDown;
-}
+            .hero h1 {
+                animation-name: fadeInDown;
+            }
 
-.hero p, .hero a {
-    animation-name: fadeInUp;
-}
+            .hero p, .hero a {
+                animation-name: fadeInUp;
+            }
 
-.hero a {
-    display: inline-block;
-    padding: 10px 20px;
-    color: white;
-    background-color: #007bff;
-    border-radius: 5px;
-    text-decoration: none;
-}
+            .hero a {
+                display: inline-block;
+                padding: 10px 20px;
+                color: white;
+                background-color: #007bff;
+                border-radius: 5px;
+                text-decoration: none;
+            }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -100%, 0);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -100%, 0);
+            }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    .hero p {
-        font-size: 1rem;
-    }
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 100%, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
 
         .container {
             max-width: 1200px;
@@ -441,6 +444,7 @@
                     <div class="category-header" onclick="toggleCategory('combat-commands')">Combat Commands <i class="fas fa-chevron-down"></i></div>
                     <div id="combat-commands" class="category-content">
                         <ul>
+                            <li><strong>!shot  [user] [gun] </strong> - Knife attack.</li>
                             <li><strong>!pain</strong> - Knife attack.</li>
                             <li><strong>!plantc4</strong> - Place a bomb.</li>
                         </ul>
@@ -472,6 +476,11 @@
                             <li><strong>!ammuexit</strong> - Exit ammunation.</li>
                             <li><strong>!bankenter</strong> - Enter Bank to rob.</li>
                             <li><strong>!bankexit</strong> - Exit bank.</li>
+                            <li><strong>!blackmarketenter</strong> - Enter Bank to rob.</li>
+                            <li><strong>!blackmarketexit</strong> - Exit bank.</li>
+
+
+
                         </ul>
                     </div>
                 </div>
@@ -508,13 +517,11 @@
                             <li><strong>!gameinfo</strong> - Information about the game.</li>
                             <li><strong>!leave</strong> - Leave the game.</li>
                             <li><strong>!status</strong> - Use Armor.</li>
-                            <li><strong>!bankrob</strong> - Use Armor.</li>
+                            <li><strong>!bankrob</strong> - Rob A bank.</li>
                             <li><strong>!itemshoprob</strong> - Rob Item Shop.</li>
                             <li><strong>!ammurob</strong> - Rob Ammunation.</li>
-                            <li><strong>!bankrob</strong> - Rob Bank.</li>
                             <li><strong>!search</strong> - Search .</li>
-                            <li><strong>!rob</strong> - Rob a person.</li>
-                            <li><strong>!bankrob</strong> - Use Armor.</li>
+                            <li><strong>!rob</strong> - Rob a person.</li> 
                         </ul>
                     </div>
                 </div>
