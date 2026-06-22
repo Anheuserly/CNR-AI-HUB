@@ -1,0 +1,38 @@
+{
+  "name": "cnr-ai-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "appwrite:setup": "node scripts/setup-appwrite.mjs",
+    "dev:hub-bot": "npm --workspace discord-bots/cnr-ai-hub-bot run dev",
+    "dev:chat-bot": "npm --workspace discord-bots/cnr-ai-chat-bot run dev",
+    "register:hub-bot": "npm --workspace discord-bots/cnr-ai-hub-bot run register",
+    "register:chat-bot": "npm --workspace discord-bots/cnr-ai-chat-bot run register",
+    "setup:hub-guild": "npm --workspace discord-bots/cnr-ai-hub-bot run setup:guild"
+  },
+  "workspaces": [
+    "discord-bots/cnr-ai-hub-bot",
+    "discord-bots/cnr-ai-chat-bot"
+  ],
+  "dependencies": {
+    "appwrite": "^17.0.0",
+    "dotenv": "^16.4.7",
+    "lucide-react": "^0.468.0",
+    "next": "^15.0.3",
+    "node-appwrite": "^14.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "eslint": "^9.15.0",
+    "eslint-config-next": "^15.0.3",
+    "typescript": "^5.7.2"
+  }
+}

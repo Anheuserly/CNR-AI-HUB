@@ -1,0 +1,25 @@
+{
+  "name": "cnr-ai-hub-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "register": "tsx src/register-commands.ts",
+    "audit:commands": "tsx src/audit-commands.ts",
+    "setup:guild": "tsx src/setup-guild.ts"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
+    "node-appwrite": "^14.1.0",
+    "openai": "^4.73.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

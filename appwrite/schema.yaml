@@ -1,0 +1,76 @@
+database:
+  id: cnr_ai_hub
+  name: CNR AI Hub
+
+collections:
+  user_data:
+    name: User Data
+    description: Discord-linked user profile and memory data shared by both bots.
+    attributes:
+      discord_user_id: string required indexed unique
+      discord_username: string required
+      global_name: string optional
+      avatar_url: string optional
+      server_id: string optional indexed
+      server_name: string optional
+      roles: string_array optional
+      preferred_name: string optional
+      memory_summary: string optional
+      interests: string_array optional
+      warnings_count: integer optional
+      last_seen_at: datetime optional indexed
+      created_at: datetime required
+      updated_at: datetime required
+
+  discord_servers:
+    name: Discord Servers
+    description: Guild/server records for bot configuration and analytics.
+    attributes:
+      server_id: string required indexed unique
+      server_name: string required
+      owner_id: string optional
+      member_count: integer optional
+      hub_bot_enabled: boolean optional
+      chat_bot_enabled: boolean optional
+      config_json: string optional
+      created_at: datetime required
+      updated_at: datetime required
+
+  bot_conversations:
+    name: Bot Conversations
+    description: Message history and AI context summaries.
+    attributes:
+      discord_user_id: string required indexed
+      server_id: string optional indexed
+      channel_id: string optional indexed
+      bot_name: string required indexed
+      message: string required
+      response: string optional
+      prompt_version: string optional
+      metadata_json: string optional
+      created_at: datetime required indexed
+
+  bot_events:
+    name: Bot Events
+    description: Bot operational logs for commands, joins, errors, and moderation actions.
+    attributes:
+      event_type: string required indexed
+      bot_name: string required indexed
+      discord_user_id: string optional indexed
+      server_id: string optional indexed
+      channel_id: string optional
+      severity: string optional
+      details_json: string optional
+      created_at: datetime required indexed
+
+  hub_resources:
+    name: Hub Resources
+    description: Website and Discord knowledge resources.
+    attributes:
+      title: string required
+      slug: string required indexed unique
+      category: string optional indexed
+      content: string required
+      visibility: string optional indexed
+      created_at: datetime required
+      updated_at: datetime required

@@ -1,0 +1,11 @@
+{
+    "defaultVolume": 50,
+    "commandPrefix": "!",
+    "maxQueueSize": 10,
+    "musicChannel": "music",  
+    "errorLogChannel": "error-log", 
+    "embedColor": "#7289DA",
+    "playbackTimeout": 300,  
+    "botStatus": "Playing music"
+  }
+  

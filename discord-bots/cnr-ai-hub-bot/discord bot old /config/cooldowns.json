@@ -1,0 +1,27 @@
+{
+    "play": {
+      "userCooldown": 5,
+      "guildCooldown": 10
+    },
+    "skip": {
+      "userCooldown": 3,
+      "guildCooldown": 5
+    },
+    "pause": {
+      "userCooldown": 3,
+      "guildCooldown": 5
+    },
+    "stop": {
+      "userCooldown": 5,
+      "guildCooldown": 10
+    },
+    "volume": {
+      "userCooldown": 5,
+      "guildCooldown": 10
+    },
+    "queue": {
+      "userCooldown": 3,
+      "guildCooldown": 5
+    }
+  }
+  
