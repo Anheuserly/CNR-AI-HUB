@@ -283,6 +283,24 @@ export async function updateGiveaway(messageId: string, data: Record<string, unk
   });
 }
 
+export async function listActiveGiveaways(serverId?: string | null) {
+  if (!databases) return [];
+  const queries = [Query.equal("status", "active"), Query.limit(100)];
+  if (serverId) queries.push(Query.equal("server_id", serverId));
+  const existing = await databases.listDocuments(env.appwriteDatabaseId, "giveaways", queries);
+  return existing.documents as unknown as Array<{
+    message_id: string;
+    server_id: string;
+    channel_id: string;
+    host_user_id: string;
+    prize: string;
+    winner_count: number;
+    status: string;
+    ends_at: string;
+    winner_ids_json: string;
+  }>;
+}
+
 export async function checkCooldown(key: string, discordUserId: string, serverId: string, durationMs: number) {
   if (!databases) return { allowed: true, secondsLeft: 0 };
 

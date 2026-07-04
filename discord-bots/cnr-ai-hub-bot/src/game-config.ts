@@ -63,22 +63,22 @@ export const interiors = [
 
 export const shopItems = {
   pin: { name: "Pin", price: 3000, roleKey: roleKeys.pin, description: "Break another player's cuffs." },
-  cuff_kit: { name: "Cuff Kit", price: 6000, roleKey: roleKeys.cuffKit, description: "Break your own cuffs." },
-  wallet: { name: "Wallet", price: 8000, roleKey: roleKeys.wallet, description: "Protects you from player robberies." },
-  insurance: { name: "Insurance", price: 12000, roleKey: roleKeys.insurance, description: "Keeps inventory safer after death or quit." }
+  cuff_kit: { name: "Cuff Kit", price: 6000, roleKey: roleKeys.cuffKit, discordRoleId: "1514206124608585800", description: "Break your own cuffs." },
+  wallet: { name: "Wallet", price: 8000, roleKey: roleKeys.wallet, discordRoleId: "1514206109508829264", description: "Protects you from player robberies." },
+  insurance: { name: "Insurance", price: 50000, roleKey: roleKeys.insurance, description: "Keeps inventory safer after death or quit." }
 };
 
 export const weapons = {
-  1: { name: "Glock 17", damage: 12, price: 3500, roleKey: "weapon_glock_17" },
-  2: { name: "Desert Eagle", damage: 22, price: 6000, roleKey: "weapon_desert_eagle" },
-  3: { name: "Remington 870", damage: 35, price: 8000, roleKey: "weapon_remington_870" },
-  4: { name: "Mossberg 500", damage: 40, price: 12000, roleKey: "weapon_mossberg_500" },
-  5: { name: "MP5", damage: 18, price: 10000, roleKey: "weapon_mp5" },
-  6: { name: "Uzi", damage: 20, price: 14000, roleKey: "weapon_uzi" },
-  7: { name: "M16", damage: 28, price: 16000, roleKey: "weapon_m16" },
-  8: { name: "AK-47", damage: 32, price: 20000, roleKey: "weapon_ak_47" },
-  9: { name: "Remington 700", damage: 50, price: 28000, roleKey: "weapon_remington_700" },
-  10: { name: "Barrett M82", damage: 75, price: 50000, roleKey: "weapon_barrett_m82" }
+  1: { name: "Glock 17", damage: 12, price: 3500, roleKey: "weapon_glock_17", discordRoleId: "1514206129092169869" },
+  2: { name: "Desert Eagle", damage: 22, price: 6000, roleKey: "weapon_desert_eagle", discordRoleId: "1514206137996677170" },
+  3: { name: "Remington 870", damage: 35, price: 8000, roleKey: "weapon_remington_870", discordRoleId: "1514206142132129813" },
+  4: { name: "Mossberg 500", damage: 40, price: 12000, roleKey: "weapon_mossberg_500", discordRoleId: "1514206146758578337" },
+  5: { name: "MP5", damage: 18, price: 10000, roleKey: "weapon_mp5", discordRoleId: "1514206151372439572" },
+  6: { name: "Uzi", damage: 20, price: 14000, roleKey: "weapon_uzi", discordRoleId: "1514206148457140334" },
+  7: { name: "M16", damage: 28, price: 16000, roleKey: "weapon_m16", discordRoleId: "1514206177108693093" },
+  8: { name: "AK-47", damage: 32, price: 20000, roleKey: "weapon_ak_47", discordRoleId: "1514206175242227753" },
+  9: { name: "Remington 700", damage: 50, price: 28000, roleKey: "weapon_remington_700", discordRoleId: "1514206188596756501" },
+  10: { name: "Barrett M82", damage: 75, price: 50000, roleKey: "weapon_barrett_m82", discordRoleId: "1514206181328027828" }
 };
 
 export const gameModes = {

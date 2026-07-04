@@ -46,11 +46,9 @@ const gameCommandNames = new Set([
   "luckyspin",
   "clearinventory",
   "aboutme",
-  "cnr",
   "quit",
   "gameinfo",
   "stats",
-  "weap",
   "interiors",
   "enter",
   "exit",
@@ -59,7 +57,6 @@ const gameCommandNames = new Set([
   "jail",
   "taze",
   "panic",
-  "kill",
   "rob",
   "robstore",
   "bc",
@@ -71,6 +68,14 @@ const gameCommandNames = new Set([
   "buyarmor",
   "buyhealth"
 ]);
+
+const gameStatusRoleIds = {
+  suspect: "1514206047412162560",
+  mostWanted: "1514295364994207826",
+  jailed: "1514206051610919003",
+  dead: "1514206063354970142",
+  cuffed: "1514206049656111199"
+} as const;
 
 const classRoleKeys = ["cop", "robber", "fbi", "hitman"] as const;
 
@@ -340,7 +345,7 @@ async function quitPlayer(interaction: ButtonInteraction, member: GuildMember) {
   await saveGameProfile(profile);
   await removeInteriorDiscordRoles(member);
   await removeStatusDiscordRoles(member);
-  await removeInventoryVirtualRoles(interaction.user.id, interaction.guildId || "");
+  await removeInventoryRoles(member, interaction.user.id, interaction.guildId || "");
 
   await interaction.editReply({ content: insured ? "You quit the CNR game. Insurance kept your inventory safe." : "You quit the CNR game. Insurance is needed to keep guns and items after quitting." });
 }
@@ -391,7 +396,7 @@ async function chooseClass(interaction: ButtonInteraction, member: GuildMember, 
   await addDiscordRole(member, mode, `CNR AI Hub spawned as ${mode}.`);
   await grantVirtualRole(interaction.user.id, interaction.guildId || "", gameModes[mode], "class_spawn");
   if (!profile.current_interior) await member.roles.add(discordRoleIds.outside, "CNR AI Hub spawn: player is outside.").catch(() => null);
-  await restoreInventoryVirtualRoles(interaction.user.id, interaction.guildId || "", profile);
+  await restoreInventoryRoles(member, interaction.user.id, interaction.guildId || "", profile);
   await restoreSuspendedCrimeStatus(interaction.user.id, interaction.guildId || "", member, profile);
 
   await interaction.editReply({ content: `Spawned as ${mode.toUpperCase()}.` });
@@ -476,6 +481,7 @@ async function removeStatusDiscordRoles(member: GuildMember) {
     .map((name) => member.guild.roles.cache.find((role) => role.name.toLowerCase() === name.toLowerCase()))
     .filter((role): role is NonNullable<typeof role> => Boolean(role));
   if (roles.length) await member.roles.remove(roles, "CNR AI Hub quit.").catch(() => null);
+  await member.roles.remove(Object.values(gameStatusRoleIds), "CNR AI Hub quit.").catch(() => null);
 }
 
 async function removeInteriorDiscordRoles(member: GuildMember) {
@@ -487,17 +493,66 @@ async function removeInteriorDiscordRoles(member: GuildMember) {
   }
 }
 
-async function removeInventoryVirtualRoles(userId: string, guildId: string) {
-  for (const weapon of Object.values(weapons)) await revokeVirtualRole(userId, guildId, weapon.roleKey);
-  for (const item of Object.values(shopItems)) await revokeVirtualRole(userId, guildId, item.roleKey);
+async function addDiscordRoleById(member: GuildMember, roleId: string, reason: string) {
+  const role = member.guild.roles.cache.get(roleId) || (await member.guild.roles.fetch(roleId).catch(() => null));
+  if (role) await member.roles.add(role, reason).catch(() => null);
 }
 
-async function restoreInventoryVirtualRoles(userId: string, guildId: string, profile: Awaited<ReturnType<typeof getOrCreateGameProfile>>) {
+async function removeDiscordRoleById(member: GuildMember, roleId: string, reason: string) {
+  if (!member.roles.cache.has(roleId)) return;
+  await member.roles.remove(roleId, reason).catch(() => null);
+}
+
+type ShopItemConfig = (typeof shopItems)[keyof typeof shopItems];
+
+async function findDiscordRoleByExactName(member: GuildMember, roleName: string) {
+  if (!member.guild.roles.cache.some((role) => role.name.toLowerCase() === roleName.toLowerCase())) {
+    await member.guild.roles.fetch().catch(() => null);
+  }
+  return member.guild.roles.cache.find((role) => role.name.toLowerCase() === roleName.toLowerCase()) || null;
+}
+
+async function addShopItemDiscordRole(member: GuildMember, item: ShopItemConfig, reason: string) {
+  if ("discordRoleId" in item) {
+    await addDiscordRoleById(member, item.discordRoleId, reason);
+    return;
+  }
+  const role = await findDiscordRoleByExactName(member, item.name);
+  if (role) await member.roles.add(role, reason).catch(() => null);
+}
+
+async function removeShopItemDiscordRole(member: GuildMember, item: ShopItemConfig, reason: string) {
+  if ("discordRoleId" in item) {
+    await removeDiscordRoleById(member, item.discordRoleId, reason);
+    return;
+  }
+  const role = await findDiscordRoleByExactName(member, item.name);
+  if (role) await member.roles.remove(role, reason).catch(() => null);
+}
+
+async function removeInventoryRoles(member: GuildMember, userId: string, guildId: string) {
+  for (const weapon of Object.values(weapons)) {
+    await revokeVirtualRole(userId, guildId, weapon.roleKey);
+    await removeDiscordRoleById(member, weapon.discordRoleId, `CNR AI Hub: removed ${weapon.name}.`);
+  }
+  for (const item of Object.values(shopItems)) {
+    await revokeVirtualRole(userId, guildId, item.roleKey);
+    await removeShopItemDiscordRole(member, item, `CNR AI Hub: removed ${item.name}.`);
+  }
+}
+
+async function restoreInventoryRoles(member: GuildMember, userId: string, guildId: string, profile: Awaited<ReturnType<typeof getOrCreateGameProfile>>) {
   for (const item of getInventory(profile)) {
     const weapon = Object.values(weapons).find((candidate) => candidate.name.toLowerCase() === item.name.toLowerCase());
-    if (weapon) await grantVirtualRole(userId, guildId, weapon.roleKey, "inventory_restore");
+    if (weapon) {
+      await grantVirtualRole(userId, guildId, weapon.roleKey, "inventory_restore");
+      await addDiscordRoleById(member, weapon.discordRoleId, `CNR AI Hub: restored ${weapon.name}.`);
+    }
     const shopItem = Object.values(shopItems).find((candidate) => candidate.name.toLowerCase() === item.name.toLowerCase());
-    if (shopItem) await grantVirtualRole(userId, guildId, shopItem.roleKey, "inventory_restore");
+    if (shopItem) {
+      await grantVirtualRole(userId, guildId, shopItem.roleKey, "inventory_restore");
+      await addShopItemDiscordRole(member, shopItem, `CNR AI Hub: restored ${shopItem.name}.`);
+    }
   }
 }
 

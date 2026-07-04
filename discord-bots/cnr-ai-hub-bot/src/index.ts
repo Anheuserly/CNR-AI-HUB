@@ -1,7 +1,7 @@
 import { Client, Events, GatewayIntentBits, Partials } from "discord.js";
 import { env } from "./env.js";
 import { logBotEvent, upsertDiscordUser } from "./appwrite.js";
-import { executeCommand, handleInteriorButton, syncMemberHealthCap } from "./commands.js";
+import { ensureTicketPanel, executeCommand, handleCnrModal, handleInteriorButton, processActiveGiveaways, syncMemberHealthCap } from "./commands.js";
 import { registerAuditLogger } from "./audit-logger.js";
 import { authChannelId, enforceGameAccess, handleAuthButton, removeOnlineRoleForInvisible, sendAuthPanel } from "./auth-panel.js";
 import { onlinePlayerRolesChanged, updateOnlinePlayersPanel } from "./online-players-panel.js";
@@ -33,6 +33,12 @@ client.once(Events.ClientReady, async (readyClient) => {
   await updateOnlinePlayersPanel(await channelGuild(readyClient, authChannelId)).catch((error) => {
     console.error("Online players panel setup failed:", error);
   });
+  await ensureTicketPanel(readyClient).catch((error) => {
+    console.error("Support ticket panel setup failed:", error);
+  });
+  await processActiveGiveaways(readyClient).catch((error) => {
+    console.error("Giveaway scheduler setup failed:", error);
+  });
   setInterval(
     () => {
       void ensureAccessPanel(readyClient).catch((error) => {
@@ -43,6 +49,12 @@ client.once(Events.ClientReady, async (readyClient) => {
         .catch((error) => {
           console.error("Online players panel refresh failed:", error);
         });
+      void ensureTicketPanel(readyClient).catch((error) => {
+        console.error("Support ticket panel check failed:", error);
+      });
+      void processActiveGiveaways(readyClient).catch((error) => {
+        console.error("Giveaway scheduler refresh failed:", error);
+      });
     },
     60 * 1000
   );
@@ -79,6 +91,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
     if (interaction.isButton()) {
       if (await handleAuthButton(interaction)) return;
       if (await handleInteriorButton(interaction)) return;
+    }
+    if (interaction.isModalSubmit()) {
+      if (await handleCnrModal(interaction)) return;
     }
 
     if (!interaction.isChatInputCommand()) return;
